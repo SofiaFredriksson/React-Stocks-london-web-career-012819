@@ -1,26 +1,33 @@
 import React from 'react';
 
-const SearchBar = () => {
+const SearchBar = ({sortTypes, chosenSortType, handleSortChange,  filterTypes, handleFilterChange}) => {
   return (
     <div>
 
       <strong>Sort by:</strong>
-      <label>
-        <input type="radio" value="Alphabetically" checked={null} onChange={null}/>
-        Alphabetically
-      </label>
-      <label>
-        <input type="radio" value="Price" checked={null} onChange={null}/>
-        Price
-      </label>
+
+      {
+        sortTypes.map(sortType => 
+          <label>
+            <input 
+            type="radio" 
+            value={sortType} 
+            checked={chosenSortType === sortType} 
+            onChange={(e) => handleSortChange(e.target.value)}/>
+            {sortType}
+          </label>
+        )
+      }
+      
       <br/>
 
       <label>
         <strong>Filter:</strong>
-        <select onChange={null}>
-          <option value="Tech">Tech</option>
-          <option value="Sportswear">Sportswear</option>
-          <option value="Finance">Finance</option>
+        <select onChange={(e) => handleFilterChange(e.target.value)}>
+          {
+            filterTypes.map(type => <option value={type}>{type}</option>)
+          }
+          
         </select>
       </label>
 
